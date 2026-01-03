@@ -1,6 +1,3 @@
 [submodule "Plugins/GGPOUE"]
 	path = Plugins/GGPOUE
 	url = https://github.com/koenjicode/GGPOUE.git
-[submodule "Plugins/RollbackKit"]
-	path = Plugins/RollbackKit
-	url = https://github.com/Reverie-Fighting-Project/RollbackKit.git
