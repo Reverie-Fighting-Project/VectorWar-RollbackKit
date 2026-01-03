@@ -7,7 +7,6 @@
 #include "Windows/prewindowsapi.h"
 
 #include <windows.h>
-#include <stdio.h>
 #include <math.h>
 
 //@Debug: doesn't work as is with ggpo a member variable in VWGameStateBase
