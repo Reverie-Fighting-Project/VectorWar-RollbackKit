@@ -1,13 +1,13 @@
-### VectorWar UE
+### VectorWar RollbackKit
 
-A port of the GGPO sample game "VectorWar" for Unreal Engine, using [GGPOUE](https://github.com/BwdYeti/GGPOUE).
+Code changes to the VectorWarUE project to be built using the RollbackKit. This project requires [GGPOUE](https://github.com/koenjicode/GGPOUE).
 
 ![screencap](vwscreen.png)
 
 ## Setup
 
-1. Install [Unreal Engine 5.2](https://docs.unrealengine.com/en-US/GettingStarted/Installation/index.html), [Visual Studio](https://docs.unrealengine.com/en-US/Programming/Development/VisualStudioSetup/index.html), and any dependencies.
-2. Clone the repo with ```git clone --recursive https://github.com/BwdYeti/VectorWarUE.git```, or after downloading run ```git submodule update --init --recursive``` to download the [GGPOUE](https://github.com/BwdYeti/GGPOUE) submodule.
+1. Install [Unreal Engine 5.7](https://docs.unrealengine.com/en-US/GettingStarted/Installation/index.html), [Visual Studio](https://docs.unrealengine.com/en-US/Programming/Development/VisualStudioSetup/index.html), and any dependencies.
+2. Clone the repo with ```git clone --recursive https://github.com/BwdYeti/VectorWarUE.git```, or after downloading run ```git submodule update --init --recursive``` to download the [GGPOUE](https://github.com/koenjicode/GGPOUE) submodule.
 3. (optional) Generate project files (Right click VectorWarUE.uproject, ```Generate Visual Studio project files```).
 4. Open VectorWarUE.uproject
 
@@ -19,6 +19,6 @@ A port of the GGPO sample game "VectorWar" for Unreal Engine, using [GGPOUE](htt
 
 ## Notes
 
-Unreal Engine is not deterministic, which is required for netcode that only sends inputs between players, such as deterministic lockstep (delay based) or rollback. VectorWarUE gets around this by running the original VectorWar code as its own game state, separate from the UE game logic. It only uses UE for reading player inputs, maintaining the update tick frequency, and rendering the game state by matching Unreal actors to the game state objects they represent. Similar solutions will be required for your own projects.
+Unreal Engine is not deterministic, which is required for netcode that only sends inputs between players, such as deterministic lockstep (delay based) or rollback. The original VectorWarUE project ran the VectorWar game state, and rendered the game state by matching it with equivalent Unreal Actors. The goal of the RollbackKit is to create a similar workflow that you'd have for working on a proper Unreal Engine project with the added benefit of Rollback.
 
 Currently GGPOUE is only usable with Windows.
