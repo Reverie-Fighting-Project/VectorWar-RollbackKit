@@ -14,6 +14,11 @@
 // How many times TickGameState() can be called during Tick()
 #define MAX_UPDATES_PER_TICK 30
 
+AVWGameStateBase::AVWGameStateBase()
+{
+    PrimaryActorTick.bCanEverTick = true;
+}
+
 void AVWGameStateBase::BeginPlay()
 {
     Super::BeginPlay();
@@ -28,18 +33,24 @@ void AVWGameStateBase::BeginPlay()
     {
         // Get the network addresses
         NetworkAddresses = GgpoGameInstance->NetworkAddresses;
-        NumPlayers = NetworkAddresses->GetNumPlayers();
-        // Reset the game instance network addresses
-        GgpoGameInstance->NetworkAddresses = nullptr;
+        if (NetworkAddresses != nullptr)
+        {
+            NumPlayers = NetworkAddresses->GetNumPlayers();
+            // Reset the game instance network addresses
+            GgpoGameInstance->NetworkAddresses = nullptr;
+        }
     }
 
-    if (NetworkAddresses->IsSpectator())
+    if (NetworkAddresses != nullptr)
     {
-        bSessionStarted = TryStartGGPOSpectatorSession(NumPlayers, NetworkAddresses);
-    }
-    else
-    {
-        bSessionStarted = TryStartGGPOPlayerSession(NumPlayers, NetworkAddresses);
+        if (NetworkAddresses->IsSpectator())
+        {
+            bSessionStarted = TryStartGGPOSpectatorSession(NumPlayers, NetworkAddresses);
+        }
+        else
+        {
+            bSessionStarted = TryStartGGPOPlayerSession(NumPlayers, NetworkAddresses);
+        }
     }
 
     if (bSessionStarted)
@@ -63,6 +74,10 @@ void AVWGameStateBase::BeginPlay()
 void AVWGameStateBase::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
+    if (!bSessionStarted)
+    {
+        return; 
+    }
 
     MSG msg = { 0 };
 
